@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import getAllProductsApi from "../../services/products/getAllProductsApi";
+// import getAllProductsApi from "../../services/products/getAllProductsApi";
 import MaterialReactTable from "material-react-table";
 import { useQueryGetAllProducts } from "../../reactQuery/getAllProducts";
 import { Delete, Edit } from "@mui/icons-material";
