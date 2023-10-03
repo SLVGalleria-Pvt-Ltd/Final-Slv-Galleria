@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import MaterialReactTable from "material-react-table";
 import { useQueryGetAllProducts } from "../../reactQuery/getAllProducts";
 import { Delete, Edit } from "@mui/icons-material";
-import createproductapi from "../../services/products/createproductapi";
+import createproductapi from "../../services/products/createproduct";
 import toast from "react-hot-toast";
 
 const AdminProduct = () => {

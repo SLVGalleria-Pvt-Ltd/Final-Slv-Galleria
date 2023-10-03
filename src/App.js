@@ -4,7 +4,7 @@ import Routes from "./routes/routes";
 import { useDispatch } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
-import getAllProductsApi from "./services/products/getAllProductsApi";
+import getAllProductsApi from "./services/products/getAllProducts";
 import { useQueryGetAllProducts } from "./reactQuery/getAllProducts";
 import { addAllProducts } from "./redux/slice/ProductSlice";
 
