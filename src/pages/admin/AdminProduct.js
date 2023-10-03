@@ -197,14 +197,6 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
               gap: "1.5rem",
             }}
           >
-            {/* <TextField
-                key={column.accessorKey}
-                label={column.header}
-                name={column.accessorKey}
-                onChange={(e) =>
-                  setValues({ ...values, [e.target.name]: e.target.value })
-                }
-              /> */}
             {columns.map((column) => (
               <TextField
                 key={column.accessorKey}
