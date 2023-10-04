@@ -4,6 +4,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useQueryGetAllProducts } from "../../reactQuery/getAllProducts";
 
 const data = [
   {
@@ -52,6 +53,7 @@ const data = [
 
 const Shop = () => {
   const navigate = useNavigate();
+  const allProducts = useQueryGetAllProducts();
 
   function goToProductPage(id) {
     navigate(`/shop/${id}`);
@@ -149,8 +151,8 @@ const Shop = () => {
                 <div className="border"></div>
               </div>
               <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 p-4">
-                {data.map(
-                  ({ image, title, creator, featured, price }, index) => {
+                {allProducts?.data?.products.map(
+                  ({ _id, name, category, quantity, price }, index) => {
                     return (
                       <div
                         onClick={() => goToProductPage(index)}
@@ -160,8 +162,8 @@ const Shop = () => {
                         <div className="bg-pink-50 border border-pink-200 p-5 hover:bg-pink-200 relative">
                           <div className="h-[250px] w-auto flex items-center justify-center">
                             <img
-                              src={`/images/${image}`}
-                              alt={title}
+                              src={`http://localhost:3000/api/v1/product/product-photo/${_id}`}
+                              alt={name}
                               className="h-[250px]"
                             />
                           </div>
@@ -178,14 +180,14 @@ const Shop = () => {
                           </div>
                         </div>
                         <div>
-                          <h3 className="text-xl mb-1">{title}</h3>
+                          <h3 className="text-xl mb-1">{name}</h3>
                           <div className="flex space-x-2 font-serif">
-                            <h4 className="text-pink-600">Creator:</h4>
-                            <p>{creator}</p>
+                            <h4 className="text-pink-600">Category:</h4>
+                            <p>{category?.name}</p>
                           </div>
                           <div className="flex space-x-2 font-serif">
-                            <h4 className="text-pink-600">Featured in:</h4>
-                            <p>{featured}</p>
+                            <h4 className="text-pink-600">Quantity:</h4>
+                            <p>{quantity}</p>
                           </div>
                           <div className="flex space-x-2 font-serif">
                             <h4 className="text-pink-600">Price:</h4>

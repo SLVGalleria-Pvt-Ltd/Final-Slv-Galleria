@@ -81,7 +81,7 @@ const Login = () => {
       if (data?.success && data?.user?.role === 1) {
         toast.success("Admin Login Successfully");
         dispatch(addAdmin(data?.user));
-        navigate("/dashboard");
+        navigate("/admin/dashboard");
       } else if (data?.success && data?.user?.role === 0) {
         toast.success("User Login Successfully");
         dispatch(addUser(data?.user));
