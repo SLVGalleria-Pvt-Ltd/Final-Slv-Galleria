@@ -49,7 +49,7 @@ export default function AdminLogin() {
         setLoading(false);
         toast.success("Admin Login Successfully");
         dispatch(addAdmin(data?.user));
-        navigate("/dashboard");
+        navigate("/admin/dashboard");
       } else if (data?.success && data?.user?.role === 0) {
         dispatch(addUser(data?.user));
         setLoading(false);

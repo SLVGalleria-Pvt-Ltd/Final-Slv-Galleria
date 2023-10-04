@@ -56,7 +56,7 @@ const Routes = () => {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/dashboard/product" element={<AdminProduct />} />
-        {/* <Route path="/admin-register" element={<AdminRegister />} /> */}
+        <Route path="/admin-register" element={<AdminRegister />} />
       </Switch>
     </>
   );
