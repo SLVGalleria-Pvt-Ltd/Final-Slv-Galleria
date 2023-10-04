@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 const AdminDashboard = () => {
   const drawerWidth = useSelector((state) => state.drawerWidth.value);
+
   return (
     <Box
       component="main"
