@@ -17,5 +17,5 @@ export default function HomeNavBar() {
     }
   }, [location.pathname]);
 
-  return display ? <NavBar1 /> : <Outlet />;
+  return display ? <NavBar1 /> : <></>;
 }

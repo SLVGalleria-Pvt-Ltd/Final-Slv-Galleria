@@ -48,6 +48,7 @@ export default function AdminLogin() {
       if (data?.success && data?.user?.role === 1) {
         setLoading(false);
         toast.success("Admin Login Successfully");
+        localStorage.setItem("auth", data?.token);
         dispatch(addAdmin(data?.user));
         navigate("/admin/dashboard");
       } else if (data?.success && data?.user?.role === 0) {

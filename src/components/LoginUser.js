@@ -16,8 +16,8 @@ function classNames(...classes) {
 export default function LoginUser() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdminLogin, setIsAdminLogin] = useState(false);
-  const user = useSelector((state) => state.user.value);
-  const admin = useSelector((state) => state.admin.value);
+  const user = useSelector((state) => state?.user?.value);
+  const admin = useSelector((state) => state?.admin?.value);
   console.log("USER", user?._id);
   const uid = user?._id;
   const adminUID = admin?._id;
@@ -52,9 +52,11 @@ export default function LoginUser() {
       <div>
         <Menu.Button>
           {!isAuthenticated ? (
-            <Link to="/log-in" className="px-10 py-1 bg-pink-900">
-              Login
-            </Link>
+            <>
+              <Link to="/log-in" className="px-10 py-1 bg-pink-900">
+                Login
+              </Link>
+            </>
           ) : (
             <div className="flex space-x-1 py-1 items-center">
               <h3 className="">{userName ? userName : ""}</h3>

@@ -18,10 +18,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useDispatch } from "react-redux";
 import { setDrawerWidth } from "../../redux/slice/drawerWidthSlice";
-import { MdCategory, MdDashboard, MdInventory, MdReorder } from "react-icons/md";
+import {
+  MdCategory,
+  MdDashboard,
+  MdInventory,
+  MdReorder,
+} from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillSetting } from "react-icons/ai";
+import { Button } from "@mui/material";
+import { removeAdmin } from "../../redux/slice/adminSlice";
 
 const drawerWidth = 240;
 
@@ -125,8 +132,8 @@ export default function MiniDrawer() {
     },
     {
       title: "Category",
-      icon: <MdCategory className="text-2xl"/>,
-      navigation:"/admin/dashboard/category",
+      icon: <MdCategory className="text-2xl" />,
+      navigation: "/admin/dashboard/category",
     },
     {
       title: "User",
@@ -135,8 +142,8 @@ export default function MiniDrawer() {
     },
     {
       title: "Order",
-      icon: <MdReorder className="text-2xl"/>,
-      navigation:"/admin/dashboard/order",
+      icon: <MdReorder className="text-2xl" />,
+      navigation: "/admin/dashboard/order",
     },
   ];
 
@@ -158,8 +165,18 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            SLV Galleria Admin Panel
           </Typography>
+          <Button
+            color="success"
+            onClick={() => {
+              dispatch(removeAdmin());
+              localStorage.setItem("auth", "");
+              navigate("/admin");
+            }}
+          >
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -204,28 +221,30 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-          {["Setting"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }} onClick={() => navigate("/admin/dashboard/setting")}>
-              <ListItemButton
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => navigate("/admin/dashboard/setting")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <AiFillSetting className="text-2xl"/>
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                <AiFillSetting className="text-2xl" />
+              </ListItemIcon>
+              <ListItemText primary="Setting" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -1,28 +1,27 @@
 // createproductapi.js
 import AxiosClient from "../AxiosClient";
 
-export default async function createproductapi(
+export default async function createproductapi({
   name,
   description,
   price,
   quantity,
   photo,
-  categories
-) {
+  category,
+}) {
   const productData = new FormData();
   productData.append("name", name);
   productData.append("description", description);
   productData.append("price", price);
   productData.append("quantity", quantity);
   productData.append("photo", photo);
-  productData.append("categories", categories);
+  productData.append("category", category);
+  console.log("tgerte4te", productData);
 
   return AxiosClient.post(`/api/v1/product/create-product`, productData).then(
     (res) => res.data
   );
 }
-
-
 
 // //create product function
 // const handleCreate = async (e) => {

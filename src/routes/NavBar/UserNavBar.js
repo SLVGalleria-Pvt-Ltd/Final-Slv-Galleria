@@ -26,5 +26,5 @@ export default function UserNavBar() {
     }
   }, [location.pathname]);
 
-  return display ? <NavBar2 /> : <Outlet />;
+  return display ? <NavBar2 /> : <></>;
 }

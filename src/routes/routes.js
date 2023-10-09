@@ -13,7 +13,6 @@ import Contact from "../pages/SLVMore/Contact";
 import Cart from "../pages/User/Cart";
 import Home from "../pages/Main/Home";
 import Shop from "../pages/ShowProducts/Shop";
-import NavBar from "../components/NavBar/NavBar1";
 import Login from "../pages/Main/Login";
 import SignUp from "../pages/Main/SignUp";
 import Profile from "../pages/User/Profile";
@@ -22,15 +21,17 @@ import SingleProduct from "../pages/ShowProducts/SingleProduct";
 import AdminLogin from "../pages/admin/AdminLogin";
 import AdminRegister from "../pages/admin/AdminRegister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
-import UserNavBar from "./NavBar/UserNavBar";
-import HomeNavBar from "./NavBar/HomeNavBar";
 import AdminProduct from "../pages/admin/AdminProduct";
+import NavBar1 from "../components/NavBar/NavBar1";
 import NavBar3 from "../components/NavBar/NavBar3";
+import HomeNavBar from "./NavBar/HomeNavBar";
+import UserNavBar from "./NavBar/UserNavBar";
+import AdminCategory from "../pages/admin/AdminCategory";
 
 const Routes = () => {
-  const userValue = useSelector((state) => state.user.value);
-  const adminValue = useSelector((state) => state.admin.value);
-  const customization = useSelector((state) => state.customization);
+  const userValue = useSelector((state) => state?.user?.value);
+  const adminValue = useSelector((state) => state?.admin?.value);
+  const customization = useSelector((state) => state?.customization);
   const location = useLocation();
   const adminId = adminValue?._id;
   const uid = userValue?._id;
@@ -40,7 +41,7 @@ const Routes = () => {
     <>
       <HomeNavBar />
       <UserNavBar />
-      {isAdminPage ? <NavBar3 /> : <Outlet />}
+      {isAdminPage ? <NavBar3 /> : <></>}
       <Switch>
         <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -56,6 +57,7 @@ const Routes = () => {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/dashboard/product" element={<AdminProduct />} />
+        <Route path="/admin/dashboard/category" element={<AdminCategory />} />
         <Route path="/admin-register" element={<AdminRegister />} />
       </Switch>
     </>

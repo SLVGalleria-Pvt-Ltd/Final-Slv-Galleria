@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiShoppingCart } from "react-icons/hi";
 import { AiFillStar } from "react-icons/ai";
 import { BiMessageDetail, BiCategory } from "react-icons/bi";
@@ -6,6 +6,8 @@ import { MdOutlineLocalShipping, MdOutlineSavings } from "react-icons/md";
 import { TbCertificate, TbTruckReturn } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useQueryGetAllProducts } from "../../reactQuery/Products";
+import axios from "axios";
 
 const data = [
   {
@@ -53,6 +55,7 @@ const data = [
 ];
 
 const Home = () => {
+  const allProducts = useQueryGetAllProducts();
   const renderImages = (repeatCount) => {
     const images = [];
 
@@ -62,6 +65,22 @@ const Home = () => {
 
     return images;
   };
+  const [products, setProducts] = useState([]);
+
+    //getall products
+    const getAllProducts = async () => {
+        try {
+            const { data } = await axios.get("http://localhost:8000/api/v1/product/get-product");
+            setProducts(data.products);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    //lifecycle method
+    useEffect(() => {
+        getAllProducts();
+    }, []);
   return (
     <>
       <Helmet>

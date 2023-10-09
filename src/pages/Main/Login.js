@@ -80,6 +80,7 @@ const Login = () => {
       });
       if (data?.success && data?.user?.role === 1) {
         toast.success("Admin Login Successfully");
+        localStorage.setItem("auth", data?.token);
         dispatch(addAdmin(data?.user));
         navigate("/admin/dashboard");
       } else if (data?.success && data?.user?.role === 0) {

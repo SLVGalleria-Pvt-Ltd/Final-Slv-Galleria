@@ -4,7 +4,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useQueryGetAllProducts } from "../../reactQuery/getAllProducts";
+import { useQueryGetAllProducts } from "../../reactQuery/Products";
 
 const data = [
   {

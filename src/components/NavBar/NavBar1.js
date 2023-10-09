@@ -4,8 +4,13 @@ import { HiShoppingBag } from "react-icons/hi";
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import LoginUser from "../LoginUser";
-import { BsCart3 } from "react-icons/bs";
+import {
+  BsBoxArrowInUpRight,
+  BsBoxArrowUpRight,
+  BsCart3,
+} from "react-icons/bs";
 import AboutUser from "../AboutUser";
+import { useSelector } from "react-redux";
 
 const NavBarData = [
   {
@@ -23,6 +28,8 @@ const NavBar1 = () => {
   const [color, setcolor] = useState("transparent");
   const [textColor, setTextColor] = useState("white");
   const [image, setImage] = useState("/images/logoslvgalleria.png");
+  const admin = useSelector((state) => state?.admin?.value);
+  const adminUID = admin?._id;
 
   const handleNav = () => {
     setNav(!nav);
@@ -60,6 +67,17 @@ const NavBar1 = () => {
             style={{ color: `${textColor}` }}
             className="hidden sm:flex items-center"
           >
+            {adminUID && (
+              <li className="m-4 hover:underline hover:underline-offset-8 font-mono hover:text-pink-500">
+                <Link
+                  to="/admin/dashboard"
+                  className="flex items-center space-x-1"
+                >
+                  <p>Admin</p>
+                  <BsBoxArrowUpRight />
+                </Link>
+              </li>
+            )}
             <li className="m-4 hover:underline hover:underline-offset-8 font-mono hover:text-pink-500">
               <Link to="shop">Shop</Link>
             </li>
