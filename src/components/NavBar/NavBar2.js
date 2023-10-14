@@ -22,6 +22,7 @@ const NavBarData = [
 const NavBar2 = () => {
   const [nav, setNav] = useState(false);
   const admin = useSelector((state) => state?.admin?.value);
+  const cartItems = useSelector((state) => state?.cart?.items);
   const adminUID = admin?._id;
 
   const handleNav = () => {
@@ -48,13 +49,15 @@ const NavBar2 = () => {
           <ul className="hidden sm:flex items-center text-white">
             {adminUID && (
               <li className="m-4 hover:underline hover:underline-offset-8 font-mono hover:text-pink-500">
-                <Link
-                  to="/admin/dashboard"
+                <a
+                  href="/admin/dashboard"
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex items-center space-x-1"
                 >
                   <p>Admin</p>
                   <BsBoxArrowUpRight />
-                </Link>
+                </a>
               </li>
             )}
             <li className="m-4 hover:underline hover:underline-offset-8 font-mono hover:text-pink-500">
@@ -73,7 +76,7 @@ const NavBar2 = () => {
               <Link to="/cart" className="relative inline-block">
                 <BsCart3 className="text-xl" />
                 <span className="absolute top-[-11px] right-[-11px] bg-pink-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm">
-                  3
+                  {cartItems?.length}
                 </span>
               </Link>
             </li>

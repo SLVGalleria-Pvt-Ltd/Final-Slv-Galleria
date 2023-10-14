@@ -143,6 +143,7 @@ export default function AdminLogin() {
                 </Grid>
               </Grid> */}
             </Box>
+            <Link to="/" className="underline">GO TO HOME PAGE</Link>
           </Box>
         </Container>
       ) : (

@@ -153,7 +153,7 @@ const Login = () => {
                 <h5>Remember me</h5>
               </div>
               <button
-                onClick={handleClickOpen}
+                onClick={() => handleClickOpen()}
                 className="text-pink-600 hover:underline"
               >
                 Forgot Password?
@@ -186,7 +186,6 @@ const Login = () => {
           <DialogTitle>Forgot Password</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
               margin="dense"
               id="email"
               name="email"

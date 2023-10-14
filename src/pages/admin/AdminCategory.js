@@ -231,7 +231,7 @@ export const CreateNewAccountModal = ({ open, onClose, onSubmit }) => {
           Cancel
         </Button>
         <Button color="secondary" onClick={handleSubmit} variant="contained">
-          Create Product
+          Create Category
         </Button>
       </DialogActions>
     </Dialog>
@@ -313,7 +313,7 @@ export const EditAccountModal = ({ row, open, onClose, onSubmit }) => {
           Cancel
         </Button>
         <Button color="secondary" onClick={handleSubmit} variant="contained">
-          Update Product
+          Update Category
         </Button>
       </DialogActions>
     </Dialog>

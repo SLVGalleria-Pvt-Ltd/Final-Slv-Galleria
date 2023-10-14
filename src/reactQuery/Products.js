@@ -15,7 +15,7 @@ export function useQueryGetAllProducts() {
 
 export function useQueryGetSingleProduct({ slug }) {
   const query = useQuery({
-    queryKey: ["single-products"],
+    queryKey: ["single-products", slug],
     queryFn: () => getSingleProductApi({ slug }),
   });
   return query;

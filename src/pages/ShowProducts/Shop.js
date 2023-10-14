@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AiFillHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useQueryGetAllProducts } from "../../reactQuery/Products";
+import {
+  useQueryGetAllProducts,
+  useQueryGetSingleProduct,
+} from "../../reactQuery/Products";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart, removeProductFromCart } from "../../redux/slice/cartSlice";
+import { BsCartPlus, BsCartX } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 const data = [
   {
@@ -52,12 +59,36 @@ const data = [
 ];
 
 const Shop = () => {
-  const navigate = useNavigate();
-  const allProducts = useQueryGetAllProducts();
+  const [slug, setSlug] = useState("");
 
-  function goToProductPage(id) {
-    navigate(`/shop/${id}`);
+  const cartItems = useSelector((state) => state?.cart?.items);
+
+  const allProducts = useQueryGetAllProducts();
+  const { data, isLoading } = useQueryGetSingleProduct({ slug: slug });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isLoading && data?.product) {
+      handleAddToCart(data?.product);
+      setSlug("");
+    }
+  }, [data, isLoading]);
+
+  function productExists(id) {
+    return cartItems.some((item) => item._id === id);
   }
+
+  const handleAddToCart = (product) => {
+    dispatch(addProductToCart({ ...product, quantity: 1 }));
+    toast.success("Prodcut added to cart");
+  };
+
+  const handleRemoveFromCart = (id) => {
+    dispatch(removeProductFromCart(id));
+    toast.error("Prodcut remove from cart");
+  };
 
   return (
     <>
@@ -152,31 +183,42 @@ const Shop = () => {
               </div>
               <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 p-4">
                 {allProducts?.data?.products.map(
-                  ({ _id, name, category, quantity, price }, index) => {
+                  ({ _id, name, slug, category, quantity, price }, index) => {
                     return (
-                      <div
-                        onClick={() => goToProductPage(index)}
-                        className="flex flex-col space-y-5 mb-10 p-1 hover:p-0 cursor-pointer"
-                        key={index}
-                      >
-                        <div className="bg-pink-50 border border-pink-200 p-5 hover:bg-pink-200 relative">
-                          <div className="h-[250px] w-auto flex items-center justify-center">
-                            <img
-                              src={`http://localhost:3000/api/v1/product/product-photo/${_id}`}
-                              alt={name}
-                              className="h-[250px]"
-                            />
-                          </div>
+                      <div className="flex flex-col space-y-5 mb-10 p-1 hover:p-0">
+                        <div className="relative">
+                          <a
+                            href={`/shop/${slug}`}
+                            target="_blank"
+                            className=""
+                            key={index}
+                          >
+                            <div className="bg-pink-50 border border-pink-200 p-5 hover:bg-pink-200">
+                              <div className="h-[250px] w-auto flex items-center justify-center">
+                                <img
+                                  src={`http://localhost:3000/api/v1/product/product-photo/${_id}`}
+                                  alt={name}
+                                  className="h-[250px]"
+                                />
+                              </div>
+                            </div>
+                          </a>
                           <div className="absolute bottom-0 right-0 flex flex-col text-pink-900 items-center p-0.5 space-y-2">
-                            <Link>
-                              <AiFillHeart className="text-3xl p-1 rounded bg-black/20 hover:bg-white" />
-                            </Link>
-                            <Link>
-                              <FaEye className="text-[30px] p-1 rounded bg-black/20 hover:bg-white" />
-                            </Link>
-                            <Link>
-                              <BiCartAdd className="text-3xl p-1 rounded bg-black/20 hover:bg-white" />
-                            </Link>
+                            <button>
+                              <AiFillHeart className="text-3xl p-1 rounded bg-black/20 hover:bg-pink-300" />
+                            </button>
+                            <button>
+                              <FaEye className="text-[30px] p-1 rounded bg-black/20 hover:bg-pink-300" />
+                            </button>
+                            {productExists(_id) ? (
+                              <button onClick={() => handleRemoveFromCart(_id)}>
+                                <BsCartX className="text-3xl p-1 rounded bg-black/20 hover:bg-pink-300" />
+                              </button>
+                            ) : (
+                              <button onClick={() => setSlug(slug)}>
+                                <BsCartPlus className="text-3xl p-1 rounded bg-black/20 hover:bg-pink-300" />
+                              </button>
+                            )}
                           </div>
                         </div>
                         <div>

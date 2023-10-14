@@ -118,10 +118,9 @@ const AdminProduct = () => {
         >
           <img
             alt="avatar"
-            height={30}
+            className=" max-w-[75px] max-h-[75px]"
             src={`http://localhost:3000/api/v1/product/product-photo/${renderedCellValue}`}
             loading="lazy"
-            style={{ borderRadius: "50%" }}
           />
         </Box>
       ),

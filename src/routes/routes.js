@@ -53,7 +53,7 @@ const Routes = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/shop/:id" element={<SingleProduct />} />
+        <Route path="/shop/:slug" element={<SingleProduct />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/dashboard/product" element={<AdminProduct />} />

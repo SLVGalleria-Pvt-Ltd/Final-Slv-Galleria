@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -25,10 +25,14 @@ import {
   MdReorder,
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsBoxArrowUpRight, BsFillPersonFill } from "react-icons/bs";
 import { AiFillSetting } from "react-icons/ai";
-import { Button } from "@mui/material";
+import { FaUserCircle } from "react-icons/fa";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { removeAdmin } from "../../redux/slice/adminSlice";
+import { Menu, Transition } from "@headlessui/react";
+import forgetPassword from "../../services/authentication/forgetPassword";
+import toast from "react-hot-toast";
 
 const drawerWidth = 240;
 
@@ -97,11 +101,21 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function MiniDrawer() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [forgetOpen, setForgetOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [forget, setForget] = useState({
+    email: "",
+    sports: "",
+    newPassword: "",
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -109,6 +123,39 @@ export default function MiniDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleForgetOpen = () => {
+    setForgetOpen(true);
+  };
+
+  const handleForgetClose = () =>{
+    setForgetOpen(false)
+  }
+
+  const handleChangeForget = (e) => {
+    setForget((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmitForget = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await forgetPassword({
+        email: forget.email,
+        sports: forget.sports,
+        newPassword: forget.newPassword,
+      });
+      console.log("Data", data);
+      toast.success(data?.message);
+      handleForgetClose();
+    } catch (error) {
+      toast.error("Invalid email and password!");
+      console.log(error);
+      handleForgetClose();
+    }
   };
 
   useEffect(() => {
@@ -148,55 +195,148 @@ export default function MiniDrawer() {
   ];
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            SLV Galleria Admin Panel
-          </Typography>
-          <Button
-            color="success"
-            onClick={() => {
-              dispatch(removeAdmin());
-              localStorage.setItem("auth", "");
-              navigate("/admin");
-            }}
-          >
-            Log Out
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {adminDrawer.map(({ title, icon, navigation }, index) => (
+    <>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <div className="flex w-full justify-between items-center">
+              <Box display="flex">
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  marginTop="2px"
+                  marginRight="1rem"
+                >
+                  SLV Galleria Admin Panel
+                </Typography>
+                <a
+                  href="/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center space-x-1 hover:underline hover:underline-offset-8 font-mono"
+                >
+                  <Typography>Live Site</Typography>
+                  <BsBoxArrowUpRight />
+                </a>
+              </Box>
+              <Menu as="div" className="relative inline-block mt-2">
+                <div>
+                  <Menu.Button>
+                    <FaUserCircle className="text-2xl" />
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute right-0 z-10 w-40 origin-top-right rounded-md bg-blue-900 text-white shadow-lg focus:outline-none">
+                    <div className="py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className={classNames(
+                              active ? "text-pink-500 font-bold" : "",
+                              "block px-4 py-2 text-sm w-full text-start"
+                            )}
+                            onClick={() => handleForgetOpen()}
+                          >
+                            Forget Password
+                          </button>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className={classNames(
+                              active ? "text-pink-500 font-bold" : "",
+                              "block px-4 py-2 text-sm w-full text-start"
+                            )}
+                            onClick={() => {
+                              dispatch(removeAdmin());
+                              localStorage.setItem("auth", "");
+                              navigate("/admin");
+                            }}
+                          >
+                            Log Out
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {adminDrawer.map(({ title, icon, navigation }, index) => (
+              <ListItem
+                key={index}
+                disablePadding
+                sx={{ display: "block" }}
+                onClick={() => navigate(navigation)}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={title}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
             <ListItem
-              key={index}
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate(navigation)}
+              onClick={() => navigate("/admin/dashboard/setting")}
             >
               <ListItemButton
                 sx={{
@@ -212,42 +352,17 @@ export default function MiniDrawer() {
                     justifyContent: "center",
                   }}
                 >
-                  {icon}
+                  <AiFillSetting className="text-2xl" />
                 </ListItemIcon>
-                <ListItemText primary={title} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary="Setting"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => navigate("/admin/dashboard/setting")}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <AiFillSetting className="text-2xl" />
-              </ListItemIcon>
-              <ListItemText primary="Setting" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Drawer>
-      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          </List>
+        </Drawer>
+        {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -277,6 +392,57 @@ export default function MiniDrawer() {
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </Box> */}
-    </Box>
+      </Box>
+      <Dialog open={forgetOpen} onClose={handleForgetClose}>
+        <form
+          onSubmit={(e) => {
+            handleSubmitForget(e);
+          }}
+        >
+          <DialogTitle>Forgot Password</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              id="email"
+              name="email"
+              value={forget.email}
+              onChange={handleChangeForget}
+              label="Email"
+              placeholder="Enter your Email"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="sports"
+              name="sports"
+              value={forget.sports}
+              onChange={handleChangeForget}
+              label="Answer"
+              placeholder="Enter your Favorite Sports"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="newPassword"
+              name="newPassword"
+              value={forget.newPassword}
+              onChange={handleChangeForget}
+              label="New Password"
+              placeholder="Enter New Password"
+              type="password"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleForgetClose}>Cancel</Button>
+            <Button type="submit" color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </>
   );
 }
