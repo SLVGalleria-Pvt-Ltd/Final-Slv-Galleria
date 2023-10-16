@@ -13,6 +13,7 @@ import {
   TextField,
   Toolbar,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import MaterialReactTable from "material-react-table";
@@ -26,6 +27,8 @@ import { Delete, Edit } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useQueryGetAllCategories } from "../../reactQuery/Category";
+import { BsEye } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const AdminProduct = () => {
   const drawerWidth = useSelector((state) => state.drawerWidth.value);
@@ -133,22 +136,25 @@ const AdminProduct = () => {
     {
       accessorKey: "description",
       header: "Description",
-      size: 300,
+      size: 250,
+      Cell: ({ renderedCellValue, row }) => (
+        <div>{renderedCellValue.slice(0, 50) + "..."}</div>
+      ),
     },
     {
       accessorKey: "price", //normal accessorKey
       header: "Price",
-      size: 50,
+      size: 30,
     },
     {
       accessorKey: "quantity",
       header: "Quantity",
-      size: 50,
+      size: 30,
     },
     {
       accessorKey: "category.name",
       header: "Category",
-      size: 100,
+      size: 50,
     },
   ];
 
@@ -166,7 +172,19 @@ const AdminProduct = () => {
         enableEditing
         renderRowActions={({ row }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Tooltip arrow placement="left" title="Edit">
+            <a
+              href={`http://localhost:3001/shop/${row?.original?.slug}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Tooltip arrow placement="left" title="View">
+                <IconButton color="primary">
+                  <BsEye />
+                </IconButton>
+              </Tooltip>
+            </a>
+
+            <Tooltip arrow placement="bottom" title="Edit">
               <IconButton
                 onClick={() => {
                   setEditModalValues(row?.original);

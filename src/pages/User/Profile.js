@@ -8,6 +8,7 @@ import { FaUserAlt, FaWallet } from "react-icons/fa";
 import { HiOutlineHeart } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import ProfileInFormation from "./ProfileInFormation";
 
 const Profile = () => {
   const user = useSelector((state) => state.user.value);
@@ -37,7 +38,7 @@ const Profile = () => {
           <div className="grid md:grid-cols-12 md:gap-2 gap-5 xl:gap-5">
             <div className="hidden md:flex md:col-span-4 lg:col-span-3 col-span-3 flex-col md:space-y-2 space-y-5 xl:space-y-5 h-min">
               <div className="bg-white flex space-x-3 items-center p-3">
-                <Avatar name={userName} round={true} size="40"/>
+                <Avatar name={userName} round={true} size="40" />
                 {/* <img
                   src="/images/1.jpg"
                   className="rounded-full h-14 w-14 bg-gray-500"
@@ -126,85 +127,9 @@ const Profile = () => {
               </div>
             </div>
             <div className="md:col-span-8 lg:col-span-9 bg-white h-min">
-              {sidePage === "profile_information" && (
-                <div className="grid grid-cols-1 py-6 px-8 gap-14">
-                  <div className="flex flex-col space-y-6">
-                    <div className="flex space-x-6 items-center">
-                      <h4 className="text-lg font-medium">
-                        Personal Information
-                      </h4>
-                      <span className="text-sm text-pink-500 cursor-pointer font-medium">
-                        Edit
-                      </span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row space-y-5 sm:space-y-0 md:space-y-5 lg:space-y-0 sm:space-x-5 md:space-x-0 lg:space-x-5">
-                      <input
-                        className="p-2.5 bg-gray-100 border border-gray-300 w-64 sm:w-44 md:w-64 lg:w-56 xl:w-64"
-                        placeholder="First Name"
-                      />
-                      <input
-                        className="p-2.5 bg-gray-100 border border-gray-300 w-64 sm:w-44 md:w-64 lg:w-56 xl:w-64"
-                        placeholder="Last Name"
-                      />
-                      <button className="bg-pink-500 px-10 py-2.5 w-32 text-white">
-                        SAVE
-                      </button>
-                    </div>
-                    <div className="flex flex-col space-y-2">
-                      <h4 className="text-sm">Your Gender</h4>
-                      <div className="flex space-x-10">
-                        <div className="flex space-x-3">
-                          <input type="radio" />
-                          <h5>Male</h5>
-                        </div>
-                        <div className="flex space-x-3">
-                          <input type="radio" />
-                          <h5>Female</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-6">
-                    <div className="flex space-x-6 items-center">
-                      <h4 className="text-lg font-medium">Email Address</h4>
-                      <span className="text-sm text-pink-500 cursor-pointer font-medium">
-                        Edit
-                      </span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:space-x-5 space-y-5 sm:space-y-0">
-                      <input
-                        className="p-2.5 bg-gray-100 border border-gray-300 w-64"
-                        placeholder="Email"
-                      />
-                      <button className="bg-pink-500 px-10 py-2.5 w-32 text-white">
-                        SAVE
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-6">
-                    <div className="flex space-x-6 items-center">
-                      <h4 className="text-lg font-medium">Mobile Number</h4>
-                      <span className="text-sm text-pink-500 cursor-pointer font-medium">
-                        Edit
-                      </span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:space-x-5 space-y-5 sm:space-y-0">
-                      <input
-                        className="p-2.5 bg-gray-100 border border-gray-300 w-64"
-                        placeholder="Mobile Number"
-                      />
-                      <button className="bg-pink-500 px-10 py-2.5 w-32 text-white">
-                        SAVE
-                      </button>
-                    </div>
-                  </div>
-                  <button className="text-sm text-pink-500 cursor-pointer font-medium text-left">
-                    Deactivate Account
-                  </button>
-                </div>
-              )}
+              {sidePage === "profile_information" && <ProfileInFormation />}
               <img
-                src="/images/profilefooter.png"
+                src="/images/profileFooter.png"
                 alt="Profile Footer"
                 className="w-full"
               />

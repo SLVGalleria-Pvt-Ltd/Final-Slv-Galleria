@@ -52,7 +52,6 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="p-9 bg-black"></div>
       <section className="h-screen grid md:grid-cols-2 grid-cols-1">
         <div className="bg-white flex justify-start items-center px-[10%]">
           <div className="flex flex-col w-full space-y-5">
