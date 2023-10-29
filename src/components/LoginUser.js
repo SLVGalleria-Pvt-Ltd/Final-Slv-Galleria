@@ -1,13 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { BsChevronDown } from "react-icons/bs";
-import { FaUserAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import { HiChevronDown } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../redux/slice/userSlice";
-import { removeAdmin } from "../redux/slice/adminSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -15,14 +11,10 @@ function classNames(...classes) {
 
 export default function LoginUser() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdminLogin, setIsAdminLogin] = useState(false);
   const user = useSelector((state) => state?.user?.value);
-  const admin = useSelector((state) => state?.admin?.value);
   console.log("USER", user?._id);
   const uid = user?._id;
-  const adminUID = admin?._id;
   const userName = user?.name;
-  const adminName = admin?.name;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

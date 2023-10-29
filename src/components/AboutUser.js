@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { HiChevronDown } from "react-icons/hi";
 

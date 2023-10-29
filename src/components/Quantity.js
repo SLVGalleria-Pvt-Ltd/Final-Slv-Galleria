@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GrFormAdd, GrFormSubtract } from "react-icons/gr";
 
 function classNames(...classes) {

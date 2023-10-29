@@ -1,62 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AiFillHeart } from "react-icons/ai";
-import { BiCartAdd } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import {
   useQueryGetAllProducts,
   useQueryGetSingleProduct,
 } from "../../reactQuery/Products";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart, removeProductFromCart } from "../../redux/slice/cartSlice";
+import {
+  addProductToCart,
+  removeProductFromCart,
+} from "../../redux/slice/cartSlice";
 import { BsCartPlus, BsCartX } from "react-icons/bs";
 import toast from "react-hot-toast";
-
-const data = [
-  {
-    image: "vaseofflower.jpg",
-    title: "Vase of Flowers",
-    creator: "Jan Davidsz de Heem",
-    featured: "Arts & Culture",
-    price: 1000.0,
-  },
-  {
-    image: "adriana.jpg",
-    title: "Palace of Versailles",
-    creator: "Adrianna geo",
-    featured: "Arts & Culture",
-    price: 1500.0,
-  },
-  {
-    image: "bird.jpg",
-    title: "Fantail Wrens",
-    creator: "Henry de",
-    featured: "Arts & Culture",
-    price: 700.0,
-  },
-  {
-    image: "vaseofflower.jpg",
-    title: "Vase of Flowers",
-    creator: "Jan Davidsz de Heem",
-    featured: "Arts & Culture",
-    price: 1000.0,
-  },
-  {
-    image: "adriana.jpg",
-    title: "Palace of Versailles",
-    creator: "Adrianna geo",
-    featured: "Arts & Culture",
-    price: 1500.0,
-  },
-  {
-    image: "bird.jpg",
-    title: "Fantail Wrens",
-    creator: "Henry de",
-    featured: "Arts & Culture",
-    price: 700.0,
-  },
-];
 
 const Shop = () => {
   const [slug, setSlug] = useState("");
@@ -66,24 +22,23 @@ const Shop = () => {
   const allProducts = useQueryGetAllProducts();
   const { data, isLoading } = useQueryGetSingleProduct({ slug: slug });
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const handleAddToCart = (product) => {
+      dispatch(addProductToCart({ ...product, quantity: 1 }));
+      toast.success("Prodcut added to cart");
+    };
+
     if (!isLoading && data?.product) {
       handleAddToCart(data?.product);
       setSlug("");
     }
-  }, [data, isLoading]);
+  }, [data, dispatch, isLoading]);
 
   function productExists(id) {
     return cartItems.some((item) => item._id === id);
   }
-
-  const handleAddToCart = (product) => {
-    dispatch(addProductToCart({ ...product, quantity: 1 }));
-    toast.success("Prodcut added to cart");
-  };
 
   const handleRemoveFromCart = (id) => {
     dispatch(removeProductFromCart(id));
@@ -190,6 +145,7 @@ const Shop = () => {
                           <a
                             href={`/shop/${slug}`}
                             target="_blank"
+                            rel="noreferrer"
                             className=""
                             key={index}
                           >

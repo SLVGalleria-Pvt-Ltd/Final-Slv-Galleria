@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { HiShoppingCart } from "react-icons/hi";
 import { AiFillStar } from "react-icons/ai";
 import { BiMessageDetail, BiCategory } from "react-icons/bi";
@@ -7,52 +6,6 @@ import { TbCertificate, TbTruckReturn } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useQueryGetAllProducts } from "../../reactQuery/Products";
-import axios from "axios";
-
-const data = [
-  {
-    image: "vaseofflower.jpg",
-    title: "Vase of Flowers",
-    creator: "Jan Davidsz de Heem",
-    featured: "Arts & Culture",
-    price: 1000.0,
-  },
-  {
-    image: "adriana.jpg",
-    title: "Palace of Versailles",
-    creator: "Adrianna geo",
-    featured: "Arts & Culture",
-    price: 1500.0,
-  },
-  {
-    image: "bird.jpg",
-    title: "Fantail Wrens",
-    creator: "Henry de",
-    featured: "Arts & Culture",
-    price: 700.0,
-  },
-  {
-    image: "vaseofflower.jpg",
-    title: "Vase of Flowers",
-    creator: "Jan Davidsz de Heem",
-    featured: "Arts & Culture",
-    price: 1000.0,
-  },
-  {
-    image: "adriana.jpg",
-    title: "Palace of Versailles",
-    creator: "Adrianna geo",
-    featured: "Arts & Culture",
-    price: 1500.0,
-  },
-  {
-    image: "bird.jpg",
-    title: "Fantail Wrens",
-    creator: "Henry de",
-    featured: "Arts & Culture",
-    price: 700.0,
-  },
-];
 
 const Home = () => {
   const allProducts = useQueryGetAllProducts();
@@ -65,22 +18,6 @@ const Home = () => {
 
     return images;
   };
-  const [products, setProducts] = useState([]);
-
-    //getall products
-    const getAllProducts = async () => {
-        try {
-            const { data } = await axios.get("http://localhost:8000/api/v1/product/get-product");
-            setProducts(data.products);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    //lifecycle method
-    useEffect(() => {
-        getAllProducts();
-    }, []);
   return (
     <>
       <Helmet>
@@ -124,30 +61,32 @@ const Home = () => {
             </Link>
           </div>
           <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-7 gap-12">
-            {data.map(({ image, title, creator, featured, price }, index) => {
-              return (
-                <div className="flex flex-col space-y-5" key={index}>
-                  <div>
-                    <img src={`/images/${image}`} alt={title} />
+            {allProducts.map(
+              ({ image, title, creator, featured, price }, index) => {
+                return (
+                  <div className="flex flex-col space-y-5" key={index}>
+                    <div>
+                      <img src={`/images/${image}`} alt={title} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl mb-1">{title}</h3>
+                      <div className="flex space-x-2 font-serif">
+                        <h4 className="text-pink-500">Creator:</h4>
+                        <p>{creator}</p>
+                      </div>
+                      <div className="flex space-x-2 font-serif">
+                        <h4 className="text-pink-500">Featured in:</h4>
+                        <p>{featured}</p>
+                      </div>
+                      <div className="flex space-x-2 font-serif">
+                        <h4 className="text-pink-500">Price:</h4>
+                        <span>&#8377; {price}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl mb-1">{title}</h3>
-                    <div className="flex space-x-2 font-serif">
-                      <h4 className="text-pink-500">Creator:</h4>
-                      <p>{creator}</p>
-                    </div>
-                    <div className="flex space-x-2 font-serif">
-                      <h4 className="text-pink-500">Featured in:</h4>
-                      <p>{featured}</p>
-                    </div>
-                    <div className="flex space-x-2 font-serif">
-                      <h4 className="text-pink-500">Price:</h4>
-                      <span>&#8377; {price}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </div>
         </section>
         <section className="flex justify-between items-center mt-[4%] mb-[8%] px-[6%] py-10 bg-pink-900">

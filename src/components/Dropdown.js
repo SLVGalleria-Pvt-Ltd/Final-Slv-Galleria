@@ -20,7 +20,11 @@ const Dropdown = ({ title, description }) => {
             isOpen ? "transform rotate-50" : "transform rotate-0"
           }`}
         >
-          {isOpen ? <BiUpArrow className="text-pink-900"/> : <BiRightArrow className="text-pink-900"/>}
+          {isOpen ? (
+            <BiUpArrow className="text-pink-900" />
+          ) : (
+            <BiRightArrow className="text-pink-900" />
+          )}
         </span>
       </div>
       {isOpen && (

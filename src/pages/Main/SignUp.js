@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle, FcShop } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import signupapi from "../../services/authentication/signupapi";
 import toast from "react-hot-toast";
 import { addUser } from "../../redux/slice/userSlice";
+import CircularProgressIndicator from "../../common/Loadable/CircularProgressIndicator";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ const SignUp = () => {
 
   return (
     <>
+      <CircularProgressIndicator loading={loading} />
       <section className="h-screen grid md:grid-cols-2 grid-cols-1">
         <div className="bg-white flex justify-start items-center px-[10%]">
           <div className="flex flex-col w-full space-y-5">
@@ -150,7 +151,7 @@ const SignUp = () => {
           </div>
         </div>
         <div className="bg-pink-600 hidden md:flex justify-center items-center">
-          <img src="/images/loginphoto.png" className="" alt="Login Photo" />
+          <img src="/images/loginphoto.png" className="" alt="Login" />
         </div>
       </section>
     </>

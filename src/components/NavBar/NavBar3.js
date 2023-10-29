@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -28,7 +28,14 @@ import { useNavigate } from "react-router-dom";
 import { BsBoxArrowUpRight, BsFillPersonFill } from "react-icons/bs";
 import { AiFillSetting } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { removeAdmin } from "../../redux/slice/adminSlice";
 import { Menu, Transition } from "@headlessui/react";
 import forgetPassword from "../../services/authentication/forgetPassword";
@@ -129,9 +136,9 @@ export default function MiniDrawer() {
     setForgetOpen(true);
   };
 
-  const handleForgetClose = () =>{
-    setForgetOpen(false)
-  }
+  const handleForgetClose = () => {
+    setForgetOpen(false);
+  };
 
   const handleChangeForget = (e) => {
     setForget((prevState) => ({
@@ -164,7 +171,7 @@ export default function MiniDrawer() {
     } else {
       dispatch(setDrawerWidth("60px"));
     }
-  }, [drawerWidth, open]);
+  }, [dispatch, open]);
 
   const adminDrawer = [
     {

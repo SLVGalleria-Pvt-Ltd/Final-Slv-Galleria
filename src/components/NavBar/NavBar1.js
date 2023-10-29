@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
-import { AiOutlineMenu, AiOutlineClose, AiFillShop } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { HiShoppingBag } from "react-icons/hi";
-import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
-import React, { useEffect, useState } from "react";
+import { FaUserAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import LoginUser from "../LoginUser";
-import {
-  BsBoxArrowInUpRight,
-  BsBoxArrowUpRight,
-  BsCart3,
-} from "react-icons/bs";
+import { BsBoxArrowUpRight, BsCart3 } from "react-icons/bs";
 import AboutUser from "../AboutUser";
 import { useSelector } from "react-redux";
 
