@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,7 +13,6 @@ import {
   TextField,
   Toolbar,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import MaterialReactTable from "material-react-table";
@@ -28,7 +27,6 @@ import toast from "react-hot-toast";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useQueryGetAllCategories } from "../../reactQuery/Category";
 import { BsEye } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 
 const AdminProduct = () => {
   const drawerWidth = useSelector((state) => state.drawerWidth.value);

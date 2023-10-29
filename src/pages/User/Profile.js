@@ -1,11 +1,9 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import Avatar from "react-avatar";
 import { Helmet } from "react-helmet";
-import { BiChevronRight, BiSolidUserAccount } from "react-icons/bi";
+import { BiChevronRight } from "react-icons/bi";
 import { BsFillFolderFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { FaUserAlt, FaWallet } from "react-icons/fa";
-import { HiOutlineHeart } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProfileInFormation from "./ProfileInFormation";

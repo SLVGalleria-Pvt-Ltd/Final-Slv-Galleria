@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import NavBar2 from "../../components/NavBar/NavBar2";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQueryGetSingleProduct } from "../../reactQuery/Products";
 import {
   addProductToCart,
   removeProductFromCart,
 } from "../../redux/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { CircularProgress } from "@mui/material";
 import CircularProgressIndicator from "../../common/Loadable/CircularProgressIndicator";
 
 const SingleProduct = () => {
@@ -27,11 +26,11 @@ const SingleProduct = () => {
     }
   }, [data, isLoading]);
 
-  function productExists(id) {
-    return cartItems.some((item) => item._id === id);
-  }
-
   useEffect(() => {
+    function productExists(id) {
+      return cartItems.some((item) => item._id === id);
+    }
+
     if (cartItems?.length > 0 && product?._id && productExists(product?._id)) {
       setInCart(true);
     } else {
@@ -72,7 +71,7 @@ const SingleProduct = () => {
                   <img
                     class="w-full h-full object-cover"
                     src={`http://localhost:3000/api/v1/product/product-photo/${product?._id}`}
-                    alt="Product Image"
+                    alt="Product"
                   />
                 </div>
                 <div class="flex -mx-2 mb-4">

@@ -1,33 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Quantity from "../../components/Quantity";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProductFromCart } from "../../redux/slice/cartSlice";
 import { Link } from "react-router-dom";
-
-const data = [
-  {
-    image: "vaseofflower.jpg",
-    title: "Vase of Flowers",
-    creator: "Jan Davidsz de Heem",
-    featured: "Arts & Culture",
-    price: 1000.0,
-  },
-  {
-    image: "adriana.jpg",
-    title: "Palace of Versailles",
-    creator: "Adrianna geo",
-    featured: "Arts & Culture",
-    price: 1500.0,
-  },
-  {
-    image: "bird.jpg",
-    title: "Fantail Wrens",
-    creator: "Henry de",
-    featured: "Arts & Culture",
-    price: 700.0,
-  },
-];
 
 const Cart = () => {
   const admin = useSelector((state) => state?.admin?.value);
@@ -44,6 +20,10 @@ const Cart = () => {
     );
     setPrice(cartPrice);
   }, [cartItems]);
+
+  useEffect(() => {
+    setDiscountPersentage(10);
+  }, []);
 
   useEffect(() => {
     const calculatedDiscount = (price * discountPercentage) / 100;
@@ -93,6 +73,7 @@ const Cart = () => {
                   <a
                     href={`/shop/${slug}`}
                     target="_blank"
+                    rel="noreferrer"
                     className="flex items-center justify-center"
                   >
                     <img
@@ -119,11 +100,11 @@ const Cart = () => {
                     </div>
                     <div className="flex space-x-5">
                       <Quantity />
-                      <a href="#" className="hover:underline text-pink-900">
+                      <a href="/" className="hover:underline text-pink-900">
                         Save For Later
                       </a>
                       <a
-                        href="#"
+                        href="/"
                         onClick={() => handleRemoveFromCart(_id)}
                         className="hover:underline text-pink-900"
                       >

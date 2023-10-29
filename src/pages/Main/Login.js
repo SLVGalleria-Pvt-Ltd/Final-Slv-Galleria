@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle, FcShop } from "react-icons/fc";
 import { useDispatch } from "react-redux";
 import loginapi from "../../services/authentication/loginapi";
 import toast from "react-hot-toast";
@@ -174,7 +173,7 @@ const Login = () => {
           </form>
         </div>
         <div className="bg-pink-600 hidden md:flex justify-center items-center">
-          <img src="/images/loginphoto.png" className="" alt="Login Photo" />
+          <img src="/images/loginphoto.png" className="" alt="Login" />
         </div>
       </section>
       <Dialog open={open} onClose={handleClose}>

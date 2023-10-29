@@ -1,17 +1,24 @@
-import { Input, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { TextField } from "@mui/material";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const ProfileInFormation = () => {
   const [disableName, setDisableName] = useState(true);
   const [disablePhone, setDisablePhone] = useState(true);
   const user = useSelector((state) => state?.user?.value);
-  const [values, setValues] = useState({
+  const [profile, setProfile] = useState({
     name: "",
     email: "",
     phone: "",
     ...user, // Spread the product data to override defaults
   });
+
+  const handleChangeProfile = (e) => {
+    setProfile((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   const handleSubmit = () => {};
 

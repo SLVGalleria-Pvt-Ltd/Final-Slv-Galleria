@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes as Switch,
-  useLocation,
-  Outlet,
-} from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Route, Routes as Switch, useLocation } from "react-router-dom";
 import Services from "../pages/SLVMore/Services";
 import About from "../pages/SLVMore/About";
 import Contact from "../pages/SLVMore/Contact";
@@ -22,19 +14,13 @@ import AdminLogin from "../pages/admin/AdminLogin";
 import AdminRegister from "../pages/admin/AdminRegister";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminProduct from "../pages/admin/AdminProduct";
-import NavBar1 from "../components/NavBar/NavBar1";
 import NavBar3 from "../components/NavBar/NavBar3";
 import HomeNavBar from "./NavBar/HomeNavBar";
 import UserNavBar from "./NavBar/UserNavBar";
 import AdminCategory from "../pages/admin/AdminCategory";
 
 const Routes = () => {
-  const userValue = useSelector((state) => state?.user?.value);
-  const adminValue = useSelector((state) => state?.admin?.value);
-  const customization = useSelector((state) => state?.customization);
   const location = useLocation();
-  const adminId = adminValue?._id;
-  const uid = userValue?._id;
   const isAdminPage = location.pathname.startsWith("/admin/dashboard");
 
   return (

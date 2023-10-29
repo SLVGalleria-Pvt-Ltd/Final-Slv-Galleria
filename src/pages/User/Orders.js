@@ -1,4 +1,3 @@
-import React from "react";
 import { Helmet } from "react-helmet";
 import { BsFillCircleFill } from "react-icons/bs";
 import { FaRegCircle } from "react-icons/fa";
@@ -135,7 +134,7 @@ const Orders = () => {
                     <div className="col-span-2 flex flex-col space-y-2">
                       <div className="flex items-center space-x-2">
                         <div className="text-green-500 text-xs">
-                          {index % 2 == 0 ? (
+                          {index % 2 === 0 ? (
                             <FaRegCircle />
                           ) : (
                             <BsFillCircleFill />
